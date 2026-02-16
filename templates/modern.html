@@ -5,107 +5,357 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         @page {
             size: A4;
-            margin: 20mm;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-        .header {
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-        .name {
-            font-size: 28px;
-            font-weight: bold;
             margin: 0;
         }
-        .contact {
-            font-size: 12px;
-            color: #666;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: white;
         }
-        .section {
+        .container {
+            display: flex;
+            width: 210mm;
+            height: 297mm;
+            page-break-after: always;
+        }
+        .left-column {
+            width: 35mm;
+            background: #f5f5f5;
+            padding: 25mm 15mm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .right-column {
+            flex: 1;
+            padding: 25mm 20mm;
+            overflow: hidden;
+        }
+        .profile-photo {
+            width: 80mm;
+            height: 80mm;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background: #333;
+            border-radius: 50%;
+            margin: 15px auto;
+        }
+        .timeline-line {
+            width: 2px;
+            height: 100%;
+            background: #d0d0d0;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .header-title {
+            text-align: center;
             margin-bottom: 20px;
         }
-        .section-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #007bff;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
+        .header-subtitle {
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 10px;
         }
-        .item {
-            margin-bottom: 12px;
+        .header-name {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 25px;
         }
-        .item-title {
-            font-weight: bold;
+        .personal-info {
+            background: #f9f9f9;
+            border-left: 3px solid #333;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+        .personal-info-title {
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        .info-item {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .info-icon {
+            margin-right: 8px;
+            min-width: 12px;
+            font-size: 12px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-header {
+            background: #555;
+            color: white;
+            padding: 10px 15px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .timeline-entry {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+        .timeline-entry::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: #333;
+            border-radius: 50%;
+        }
+        .timeline-date {
+            font-size: 11px;
+            color: #777;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .entry-title {
+            font-weight: 700;
+            font-size: 13px;
             margin-bottom: 4px;
         }
-        .item-subtitle {
-            font-style: italic;
+        .entry-subtitle {
+            font-size: 12px;
             color: #666;
-            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .entry-description {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .bullet-item {
+            margin-bottom: 6px;
+            padding-left: 18px;
+            position: relative;
+        }
+        .bullet-item::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #333;
+            font-weight: bold;
+        }
+        .italic {
+            font-style: italic;
+        }
+        .bold {
+            font-weight: 600;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .header-separator {
+            height: 4px;
+            background: #555;
+            margin-bottom: 25mm;
+        }
+        @page {
+            margin: 0;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        {% if name %}<p class="name">{{ name }}</p>{% endif %}
-        <div class="contact">
-            {% if email %}<span>{{ email }}</span>{% endif %}
-            {% if phone %}<span> | {{ phone }}</span>{% endif %}
-            {% if location %}<span> | {{ location }}</span>{% endif %}
+    {% set pages = [
+        {
+            'sections': ['education', 'career']
+        },
+        {
+            'sections': ['internships', 'projects']
+        }
+    ] %}
+
+    {% for page_num in range(pages|length) %}
+    <div class="container">
+        <div class="left-column">
+            {% if page_num == 0 %}
+                {% if photo %}
+                    <img src="{{ photo }}" class="profile-photo" alt="Profile Photo">
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="right-column">
+            {% if page_num == 0 %}
+                <div class="header-title">
+                    <div class="header-subtitle">Curriculum Vitae</div>
+                    {% if title %}
+                        <div class="header-name">{{ name }}{% if title %}<br><span style="font-size: 18px; font-weight: 400;">{{ title }}</span>{% endif %}</div>
+                    {% else %}
+                        <div class="header-name">{{ name }}</div>
+                    {% endif %}
+                </div>
+
+                {% if personal_info %}
+                <div class="personal-info">
+                    <div class="personal-info-title">Personal Information</div>
+                    {% if personal_info.birth %}
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <span>{{ personal_info.birth }}</span>
+                    </div>
+                    {% endif %}
+                    {% if personal_info.address %}
+                    <div class="info-item">
+                        <span class="info-icon">🏠</span>
+                        <span>{{ personal_info.address }}</span>
+                    </div>
+                    {% endif %}
+                    {% if personal_info.phone %}
+                    <div class="info-item">
+                        <span class="info-icon">📱</span>
+                        <span>{{ personal_info.phone }}</span>
+                    </div>
+                    {% endif %}
+                    {% if personal_info.email %}
+                    <div class="info-item">
+                        <span class="info-icon">✉️</span>
+                        <span>{{ personal_info.email }}</span>
+                    </div>
+                    {% endif %}
+                    {% if personal_info.website %}
+                    <div class="info-item">
+                        <span class="info-icon">🌐</span>
+                        <span>{{ personal_info.website }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="header-separator"></div>
+            {% endif %}
+
+            <!-- EDUCATION SECTION (Page 1) -->
+            {% if page_num == 0 and education %}
+            <div class="section">
+                <div class="section-header">EDUCATION</div>
+                {% for edu in education %}
+                <div class="timeline-entry">
+                    {% if edu.period %}
+                    <div class="timeline-date">{{ edu.period }}</div>
+                    {% endif %}
+                    <div class="entry-title">{{ edu.degree }}</div>
+                    {% if edu.school %}
+                    <div class="entry-subtitle">{{ edu.school }}</div>
+                    {% endif %}
+                    {% if edu.details %}
+                    <div class="entry-description">
+                        {% for detail in edu.details %}
+                        <div class="bullet-item">
+                            {% if detail.label %}<span class="italic">{{ detail.label }}:</span> {% endif %}{{ detail.text }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- CAREER SECTION (Page 1) -->
+            {% if page_num == 0 and career %}
+            <div class="section">
+                <div class="section-header">CAREER</div>
+                {% for job in career %}
+                <div class="timeline-entry">
+                    {% if job.period %}
+                    <div class="timeline-date">{{ job.period }}</div>
+                    {% endif %}
+                    <div class="entry-title">{{ job.title }}</div>
+                    {% if job.company %}
+                    <div class="entry-subtitle">{% if job.employment_type %}{{ job.employment_type }}, {% endif %}{{ job.company }}</div>
+                    {% endif %}
+                    {% if job.details %}
+                    <div class="entry-description">
+                        {% for detail in job.details %}
+                        <div class="bullet-item">{{ detail }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- INTERNSHIPS SECTION (Page 2) -->
+            {% if page_num == 1 and internships %}
+            <div class="section">
+                <div class="section-header">INTERNSHIPS</div>
+                {% for internship in internships %}
+                <div class="timeline-entry">
+                    {% if internship.period %}
+                    <div class="timeline-date">{{ internship.period }}</div>
+                    {% endif %}
+                    <div class="entry-title">{{ internship.company }}</div>
+                    {% if internship.type %}
+                    <div class="entry-subtitle">{{ internship.type }}, {{ internship.location }}</div>
+                    {% endif %}
+                    {% if internship.details %}
+                    <div class="entry-description">
+                        {% for detail in internship.details %}
+                        <div class="bullet-item">{{ detail }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- PROJECTS SECTION (Page 2) -->
+            {% if page_num == 1 and projects %}
+            <div class="section">
+                <div class="section-header">INDUSTRY AND RESEARCH PROJECTS</div>
+                {% for project in projects %}
+                <div class="timeline-entry">
+                    {% if project.period %}
+                    <div class="timeline-date">{{ project.period }}</div>
+                    {% endif %}
+                    <div class="entry-title">{{ project.name }}</div>
+                    {% if project.collaboration %}
+                    <div class="entry-subtitle">In cooperation with <span class="italic">{{ project.collaboration }}</span></div>
+                    {% endif %}
+                    {% if project.details %}
+                    <div class="entry-description">
+                        {% for detail in project.details %}
+                        <div class="bullet-item">{{ detail }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
     </div>
-
-    {% if summary %}
-    <div class="section">
-        <div class="section-title">Professional Summary</div>
-        <p>{{ summary }}</p>
-    </div>
-    {% endif %}
-
-    {% if experience %}
-    <div class="section">
-        <div class="section-title">Experience</div>
-        {% for job in experience %}
-        <div class="item">
-            <div class="item-title">{{ job.title }}</div>
-            <div class="item-subtitle">{{ job.company }} | {{ job.period }}</div>
-            {% if job.description %}<p>{{ job.description }}</p>{% endif %}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    {% if education %}
-    <div class="section">
-        <div class="section-title">Education</div>
-        {% for edu in education %}
-        <div class="item">
-            <div class="item-title">{{ edu.degree }}</div>
-            <div class="item-subtitle">{{ edu.school }} | {{ edu.year }}</div>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    {% if skills %}
-    <div class="section">
-        <div class="section-title">Skills</div>
-        {% if skills is mapping %}
-            {% for category, items in skills.items() %}
-            <p><strong>{{ category }}:</strong> {{ items|join(', ') }}</p>
-            {% endfor %}
-        {% else %}
-            <p>{{ skills|join(', ') }}</p>
-        {% endif %}
-    </div>
-    {% endif %}
+    {% endfor %}
 </body>
 </html>

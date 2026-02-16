@@ -1,38 +1,99 @@
-name: John Doe
-email: john@example.com
-phone: "+1 (555) 123-4567"
-location: San Francisco, CA
+name: Dr. Jane Scientist
+title: Chief Coffee Drinker & Algorithm Wrangler
+photo: null
 
-summary: |
-  Experienced software engineer with expertise in full-stack development.
-  Passionate about building scalable applications and mentoring teams.
-
-experience:
-  - title: Senior Software Engineer
-    company: Tech Corp
-    period: 2022 - Present
-    description: Led development of microservices architecture serving 1M+ users
-
-  - title: Software Engineer
-    company: StartUp Inc
-    period: 2020 - 2022
-    description: Built and maintained Python backends using FastAPI and SQLAlchemy
+personal_info:
+  birth: "Born 01.04.1985 in Nerdville"
+  address: "Binary Boulevard 42, 10101 Code City"
+  phone: "+01 234 567 8900"
+  email: "jane.scientist@example.com"
+  website: "janescience.dev"
 
 education:
-  - degree: Bachelor of Science in Computer Science
-    school: State University
-    year: 2020
+  - degree: "PhD (Dr. rer. nat.) – Artificial Intelligence"
+    school: "Department of Robot Psychology, Tech University"
+    period: "09/2015 – 08/2020"
+    details:
+      - label: "Research Focus"
+        text: "Teaching machines to understand memes, Deep Learning for cat video classification, Transfer Learning between coffee consumption and code quality"
+      - label: "Topic of the doctoral thesis"
+        text: "\"Why Do Neural Networks Dream of Electric Sheep? An Investigation into AI Consciousness and Breakfast Preferences\""
 
-skills:
-  Programming Languages:
-    - Python
-    - JavaScript
-    - TypeScript
-  Tools & Frameworks:
-    - FastAPI
-    - React
-    - PostgreSQL
-  Other:
-    - Docker
-    - Kubernetes
-    - AWS
+  - degree: "Master of Science - Computer Science"
+    school: "Institute of Caffeinated Computing"
+    period: "09/2013 – 08/2015"
+    details:
+      - label: "Focus"
+        text: "Machine Learning & Debugging at 3 AM"
+      - label: "Topic of the Master's thesis"
+        text: "\"Predicting Stack Overflow Questions Before They're Asked: A Time-Traveling Approach\""
+
+  - degree: "Bachelor of Science - Software Engineering"
+    school: "University of Pixel Pushing"
+    period: "09/2010 – 08/2013"
+    details:
+      - label: "Minor"
+        text: "Human-Computer High-Fiving"
+      - label: "Topic of the bachelor thesis"
+        text: "\"Optimizing Git Commit Messages: From 'fix stuff' to 'fix stuff (actually works this time)'\""
+
+career:
+  - title: "Research Assistant and Professional Bug Creator"
+    company: "Lab of Questionable Decisions, Tech University"
+    employment_type: "Full-time"
+    period: "09/2015 – 08/2020"
+    details:
+      - "Conducted groundbreaking research on why code works on my machine but nowhere else"
+      - "Supervised students in the ancient art of reading documentation"
+      - "Published papers that approximately 7 people read (including my mom)"
+
+  - title: "Postdoctoral Researcher & Stack Overflow Contributor"
+    company: "Center for Advanced Procrastination Studies"
+    employment_type: "Full-time"
+    period: "09/2020 – 12/2022"
+    details:
+      - "Led the <span class='italic'>Department of Things That Seemed Like Good Ideas At The Time</span>"
+      - "Wrote grant proposals that were mostly science fiction"
+      - "Organized conferences where people pretend to understand each other's talks"
+
+  - title: "Senior Data Wizard"
+    company: "Big Data Analytics Corp"
+    employment_type: "Full-time"
+    period: "01/2023 – present"
+    details:
+      - "Transform coffee into code and data into slightly different data"
+      - "Explain to management that AI cannot actually read minds (yet)"
+      - "Build models that are wrong in interesting ways"
+      - "Attend meetings that could have been emails"
+      - "Debug issues caused by previous me (that guy was an idiot)"
+
+internships:
+  - company: "Tech Giant™ Inc."
+    type: "Full-time (mostly full of snacks)"
+    location: "Silicon Valley, CA"
+    period: "06/2012 – 09/2012"
+    details:
+      - "Developed features that were immediately deprecated"
+      - "Learned that 'move fast and break things' is a documentation strategy"
+
+projects:
+  - name: "AI for Everyone (Who Can Afford a GPU)"
+    collaboration: "Various companies with too much funding"
+    period: "01/2023 – present"
+    details:
+      - "Teaching executives that ChatGPT is not sentient and won't steal their jobs (the interns will)"
+      - "Delivered workshops on prompt engineering, which is just fancy googling"
+
+  - name: "Predictive Analytics for Things Nobody Asked For"
+    collaboration: "RetailCorp International"
+    period: "03/2023 – present"
+    details:
+      - "Built a system that predicts when customers will buy things they don't need"
+      - "Achieved 99% accuracy on the training set, 12% on reality"
+
+  - name: "The Great Model That Shall Not Be Named"
+    collaboration: "Startup That No Longer Exists"
+    period: "06/2023 – 09/2023"
+    details:
+      - "Created an AI so powerful it recommended shutting itself down"
+      - "Learned valuable lessons about overfitting to company culture"
