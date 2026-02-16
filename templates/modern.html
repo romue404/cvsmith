@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .header {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .name {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .contact {
+            font-size: 12px;
+            color: #666;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #007bff;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        .item {
+            margin-bottom: 12px;
+        }
+        .item-title {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .item-subtitle {
+            font-style: italic;
+            color: #666;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        {% if name %}<p class="name">{{ name }}</p>{% endif %}
+        <div class="contact">
+            {% if email %}<span>{{ email }}</span>{% endif %}
+            {% if phone %}<span> | {{ phone }}</span>{% endif %}
+            {% if location %}<span> | {{ location }}</span>{% endif %}
+        </div>
+    </div>
+
+    {% if summary %}
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <p>{{ summary }}</p>
+    </div>
+    {% endif %}
+
+    {% if experience %}
+    <div class="section">
+        <div class="section-title">Experience</div>
+        {% for job in experience %}
+        <div class="item">
+            <div class="item-title">{{ job.title }}</div>
+            <div class="item-subtitle">{{ job.company }} | {{ job.period }}</div>
+            {% if job.description %}<p>{{ job.description }}</p>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if education %}
+    <div class="section">
+        <div class="section-title">Education</div>
+        {% for edu in education %}
+        <div class="item">
+            <div class="item-title">{{ edu.degree }}</div>
+            <div class="item-subtitle">{{ edu.school }} | {{ edu.year }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if skills %}
+    <div class="section">
+        <div class="section-title">Skills</div>
+        {% if skills is mapping %}
+            {% for category, items in skills.items() %}
+            <p><strong>{{ category }}:</strong> {{ items|join(', ') }}</p>
+            {% endfor %}
+        {% else %}
+            <p>{{ skills|join(', ') }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+</html>

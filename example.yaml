@@ -1,0 +1,38 @@
+name: John Doe
+email: john@example.com
+phone: "+1 (555) 123-4567"
+location: San Francisco, CA
+
+summary: |
+  Experienced software engineer with expertise in full-stack development.
+  Passionate about building scalable applications and mentoring teams.
+
+experience:
+  - title: Senior Software Engineer
+    company: Tech Corp
+    period: 2022 - Present
+    description: Led development of microservices architecture serving 1M+ users
+
+  - title: Software Engineer
+    company: StartUp Inc
+    period: 2020 - 2022
+    description: Built and maintained Python backends using FastAPI and SQLAlchemy
+
+education:
+  - degree: Bachelor of Science in Computer Science
+    school: State University
+    year: 2020
+
+skills:
+  Programming Languages:
+    - Python
+    - JavaScript
+    - TypeScript
+  Tools & Frameworks:
+    - FastAPI
+    - React
+    - PostgreSQL
+  Other:
+    - Docker
+    - Kubernetes
+    - AWS
