@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Jane Scientist - Curriculum Vitae</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Cantarell:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        html,
+        body {
+            width: 210mm;
+            font-family: 'Open Sans', sans-serif;
+            color: #2a2a2a;
+            background: #fafafa;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+            }
+
+            .page {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+
+        .page {
+            width: 210mm;
+            height: auto;
+            background: white;
+            margin: 12px auto;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+            padding: 25mm 20mm;
+            overflow: visible;
+            position: relative;
+        }
+
+        @media print {
+            .page {
+                height: 297mm;
+                overflow: hidden;
+            }
+        }
+
+        /* ============ HEADER SECTION ============ */
+        .header-section {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 25px;
+            align-items: flex-start;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #999;
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header-center {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-subtitle {
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: #a0a0a0;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .header-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .personal-info {
+            font-size: 9px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .info-piece {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .info-piece::before {
+            content: '•';
+            color: #999;
+            margin-right: 2px;
+        }
+
+        .info-piece:first-child::before {
+            content: '';
+            margin-right: 0;
+        }
+
+        .info-icon {
+            color: #999;
+            flex-shrink: 0;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .info-text {
+            line-height: 1.4;
+        }
+
+        /* ============ TIMELINE LAYOUT ============ */
+        .timeline-container {
+            position: relative;
+        }
+
+        /* Vertical line - at 55px from left edge of page, starts below section headers */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 55px;
+            top: 35px;
+            bottom: 0;
+            width: 1.5px;
+            background: #d5d5d5;
+        }
+
+        /* ============ SECTIONS ============ */
+        .section {
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 18px;
+            margin-left: -20mm;
+            margin-right: -20mm;
+            padding-left: 0;
+            padding-right: 20mm;
+        }
+
+        /* Grey block reaches exactly to the timeline at 55px */
+        .section-grey-block {
+            width: 30mm;
+            height: 20px;
+            background: #d9d9d9;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-family: 'Cantarell', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #2a2a2a;
+            position: relative;
+            z-index: 2;
+            margin-left: 12px;
+        }
+
+        /* ============ ENTRIES ============ */
+        .entry {
+            margin-bottom: 16px;
+            display: grid;
+            grid-template-columns: 52px 1fr;
+            gap: 25px;
+            position: relative;
+        }
+
+        /* Small black dot on timeline */
+        .entry::before {
+            content: '';
+            position: absolute;
+            left: 51px;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2a2a2a;
+            z-index: 3;
+        }
+
+        .entry-date {
+            font-size: 8.5px;
+            color: #999;
+            text-align: right;
+            padding-top: 4px;
+            line-height: 1.5;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .entry-content {
+            padding-left: 0;
+            padding-top: 2px;
+        }
+
+        .entry-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 3px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .entry-subtitle {
+            font-size: 9px;
+            color: #777;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .entry-items {
+            font-size: 9.5px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .entry-item {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .entry-item::before {
+            content: '✓';
+            color: #2a2a2a;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 8px;
+            margin-top: 1px;
+        }
+
+        .technologies {
+            font-size: 9px;
+            color: #888;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* ============ SKILLS SECTION ============ */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .skill-category {
+            margin-bottom: 14px;
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .skill-category-title {
+            font-family: 'Cantarell', sans-serif;
+            font-weight: 700;
+            font-size: 9px;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            font-size: 9.5px;
+            margin-bottom: 4px;
+            color: #555;
+            gap: 4px;
+        }
+
+        .skill-item span:first-child {
+            margin-right: 8px;
+        }
+
+        .skill-level {
+            font-size: 8px;
+            letter-spacing: 2.5px;
+            color: #2a2a2a;
+            margin-left: auto;
+        }
+
+        /* ============ AWARDS ============ */
+        .awards-container {
+            margin-left: 77px;
+        }
+
+        .award-item {
+            margin-bottom: 12px;
+        }
+
+        .award-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: #1a1a1a;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .award-date {
+            font-size: 8px;
+            color: #999;
+            margin-top: 1px;
+        }
+
+        .award-desc {
+            font-size: 9.5px;
+            color: #666;
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            position: absolute;
+            bottom: 22mm;
+            right: 20mm;
+            font-size: 8px;
+            color: #999;
+        }
+
+        @media print {
+            .page {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- HEADER -->
+        <div class="header-section">
+            
+            <div class="profile-photo" style="background: #e8e8e8;"></div>
+            
+
+            <div class="header-center">
+                <div class="header-subtitle">Curriculum Vitae</div>
+                <div class="header-name">Dr. Jane Scientist</div>
+
+                <div class="personal-info">
+                    
+                    <span class="info-piece">
+                        <span class="info-icon">◆</span>
+                        <span class="info-text">Born 01.04.1985 in Nerdville</span>
+                    </span>
+                    
+
+                    
+                    <span class="info-piece">
+                        <span class="info-icon">⌂</span>
+                        <span class="info-text">Binary Boulevard 42
+10101 Code City</span>
+                    </span>
+                    
+
+                    
+                    <span class="info-piece">
+                        <span class="info-icon">☎</span>
+                        <span class="info-text">+01 234 567 8900</span>
+                    </span>
+                    
+
+                    
+                    <span class="info-piece">
+                        <span class="info-icon">✉</span>
+                        <span class="info-text">jane.scientist@example.com</span>
+                    </span>
+                    
+
+                    
+                    <span class="info-piece">
+                        <span class="info-icon">◉</span>
+                        <span class="info-text">janescience.dev</span>
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT WITH TIMELINE -->
+        <div class="timeline-container">
+            <!-- DYNAMIC SECTIONS -->
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-grey-block"></div>
+                    <div class="section-title">EDUCATION</div>
+                </div>
+
+                
+                <div class="entry">
+                    <div class="entry-date">09/2015<br>08/2020</div>
+                    <div class="entry-content">
+                        <div class="entry-title">PhD (Dr. rer. nat.) – Artificial Intelligence</div>
+                        <div class="entry-subtitle">Department of Robot Psychology, Tech University</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Research Focus: Teaching machines to understand memes, Deep Learning for cat video classification, Transfer Learning between coffee consumption and code quality</div>
+                            
+                            <div class="entry-item">Topic of the doctoral thesis: "Why Do Neural Networks Dream of Electric Sheep? An Investigation into AI Consciousness and Breakfast Preferences"</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: PyTorch, TensorFlow, Python
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-date">09/2013<br>08/2015</div>
+                    <div class="entry-content">
+                        <div class="entry-title">Master of Science - Computer Science</div>
+                        <div class="entry-subtitle">Institute of Caffeinated Computing</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Focus: Machine Learning & Debugging at 3 AM</div>
+                            
+                            <div class="entry-item">Topic of the Master's thesis: "Predicting Stack Overflow Questions Before They're Asked: A Time-Traveling Approach"</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: Python, scikit-learn
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-date">09/2010<br>08/2013</div>
+                    <div class="entry-content">
+                        <div class="entry-title">Bachelor of Science - Software Engineering</div>
+                        <div class="entry-subtitle">University of Pixel Pushing</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Minor: Human-Computer High-Fiving</div>
+                            
+                            <div class="entry-item">Topic of the bachelor thesis: "Optimizing Git Commit Messages: From 'fix stuff' to 'fix stuff (actually works this time)'"</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: Java, Python
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-grey-block"></div>
+                    <div class="section-title">CAREER</div>
+                </div>
+
+                
+                <div class="entry">
+                    <div class="entry-date">09/2015<br>08/2020</div>
+                    <div class="entry-content">
+                        <div class="entry-title">Research Assistant and Professional Bug Creator</div>
+                        <div class="entry-subtitle">Lab of Questionable Decisions, Tech University</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Conducted groundbreaking research on why code works on my machine but nowhere else</div>
+                            
+                            <div class="entry-item">Supervised students in the ancient art of reading documentation</div>
+                            
+                            <div class="entry-item">Published papers that approximately 7 people read (including my mom)</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: PyTorch, Python, CUDA
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-date">09/2020<br>12/2022</div>
+                    <div class="entry-content">
+                        <div class="entry-title">Postdoctoral Researcher & Stack Overflow Contributor</div>
+                        <div class="entry-subtitle">Center for Advanced Procrastination Studies</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Led the Department of Things That Seemed Like Good Ideas At The Time</div>
+                            
+                            <div class="entry-item">Wrote grant proposals that were mostly science fiction</div>
+                            
+                            <div class="entry-item">Organized conferences where people pretend to understand each other's talks</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: Python, TensorFlow
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-date">01/2023<br>present</div>
+                    <div class="entry-content">
+                        <div class="entry-title">Senior Data Wizard</div>
+                        <div class="entry-subtitle">Big Data Analytics Corp</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Transform coffee into code and data into slightly different data</div>
+                            
+                            <div class="entry-item">Explain to management that AI cannot actually read minds (yet)</div>
+                            
+                            <div class="entry-item">Build models that are wrong in interesting ways</div>
+                            
+                            <div class="entry-item">Attend meetings that could have been emails</div>
+                            
+                            <div class="entry-item">Debug issues caused by previous me (that guy was an idiot)</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: Python, pandas, scikit-learn, Kubernetes
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-grey-block"></div>
+                    <div class="section-title">INDUSTRY & RESEARCH PROJECTS</div>
+                </div>
+
+                
+                <div class="entry">
+                    <div class="entry-date">01/2023<br>present</div>
+                    <div class="entry-content">
+                        <div class="entry-title">AI for Everyone (Who Can Afford a GPU)</div>
+                        <div class="entry-subtitle">Various companies with too much funding</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Teaching executives that ChatGPT is not sentient and won't steal their jobs (the interns will)</div>
+                            
+                            <div class="entry-item">Delivered workshops on prompt engineering, which is just fancy googling</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: OpenAI API, LangChain, Python
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-date">03/2023<br>present</div>
+                    <div class="entry-content">
+                        <div class="entry-title">Predictive Analytics for Things Nobody Asked For</div>
+                        <div class="entry-subtitle">RetailCorp International</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Built a system that predicts when customers will buy things they don't need</div>
+                            
+                            <div class="entry-item">Achieved 99% accuracy on the training set, 12% on reality</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: Prophet, scikit-learn, SQL
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-date">06/2023<br>09/2023</div>
+                    <div class="entry-content">
+                        <div class="entry-title">The Great Model That Shall Not Be Named</div>
+                        <div class="entry-subtitle">Startup That No Longer Exists</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Created an AI so powerful it recommended shutting itself down</div>
+                            
+                            <div class="entry-item">Learned valuable lessons about overfitting to company culture</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: PyTorch, Transformers, Weights & Biases
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-grey-block"></div>
+                    <div class="section-title">INTERNSHIPS</div>
+                </div>
+
+                
+                <div class="entry">
+                    <div class="entry-date">06/2012<br>09/2012</div>
+                    <div class="entry-content">
+                        <div class="entry-title">Software Engineering Intern</div>
+                        <div class="entry-subtitle">Tech Giant™ Inc., Silicon Valley, CA</div>
+                        <div class="entry-items">
+                            
+                            <div class="entry-item">Developed features that were immediately deprecated</div>
+                            
+                            <div class="entry-item">Learned that 'move fast and break things' is a documentation strategy</div>
+                            
+                        </div>
+                        
+                        <div class="technologies">
+                            Technologies: Java, JavaScript
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+
+        <!-- SKILLS SECTION -->
+        
+        <div class="section">
+            <div class="section-header">
+                <div class="section-grey-block"></div>
+                <div class="section-title">TECHNICAL SKILLS</div>
+            </div>
+            <div class="skills-container">
+                
+                <div class="skill-category">
+                    <div class="skill-category-title">Foreign Languages</div>
+                    
+                    <div class="skill-item">
+                        <span>English</span>
+                        <span class="skill-level">●●●●●</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>French</span>
+                        <span class="skill-level">●●○○○</span>
+                    </div>
+                    
+                </div>
+                
+                <div class="skill-category">
+                    <div class="skill-category-title">Programming Languages</div>
+                    
+                    <div class="skill-item">
+                        <span>Python</span>
+                        <span class="skill-level">●●●●●</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>JavaScript</span>
+                        <span class="skill-level">●●●●○</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>Java/Scala</span>
+                        <span class="skill-level">●●○○○</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>Haskell</span>
+                        <span class="skill-level">●●○○○</span>
+                    </div>
+                    
+                </div>
+                
+                <div class="skill-category">
+                    <div class="skill-category-title">Machine Learning</div>
+                    
+                    <div class="skill-item">
+                        <span>PyTorch</span>
+                        <span class="skill-level">●●●●●</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>NumPy / SciPy</span>
+                        <span class="skill-level">●●●●○</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>scikit-learn</span>
+                        <span class="skill-level">●●●●○</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>Pandas</span>
+                        <span class="skill-level">●●●●○</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>Seaborn / Matplotlib</span>
+                        <span class="skill-level">●●●●○</span>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <span>LangChain</span>
+                        <span class="skill-level">●●●●○</span>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+
+        <div class="footer">
+            Outer Space, 01.01.2026
+        </div>
+    </div>
+</body>
+
+</html>
