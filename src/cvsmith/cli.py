@@ -1,11 +1,9 @@
 """Command-line interface for CVSmith"""
 
-import os
 from pathlib import Path
 import click
-from .parser import load_yaml
-from .generator import CVGenerator
-
+from cvsmith.parser import load_yaml
+from cvsmith.generator import CVGenerator
 
 @click.command()
 @click.option(
@@ -18,19 +16,14 @@ from .generator import CVGenerator
     '--template',
     type=str,
     required=True,
-    help='Template name (e.g., modern.html)'
+    help='Template name (e.g., modern.jinja2)',
+    default="modern.jinja2"
 )
 @click.option(
     '--output',
     type=click.Path(),
     required=True,
-    help='Output PDF file path'
-)
-@click.option(
-    '--html',
-    type=click.Path(),
-    required=False,
-    help='Optional: Save rendered HTML to this file path'
+    help='Output folder path (CV files will be saved as cv.pdf and cv.html)'
 )
 @click.option(
     '--paper-size',
@@ -39,33 +32,34 @@ from .generator import CVGenerator
     show_default=True,
     help='Paper size: a4 or letter'
 )
-def main(yaml, template, output, html, paper_size):
-    """Generate a CV PDF from YAML data and a template."""
+def main(yaml, template, output, paper_size):
+    """Generate a CV PDF and HTML from YAML data and a template."""
     try:
         # Load YAML data
         data = load_yaml(yaml)
 
         # Get templates directory
-        templates_dir = os.path.join(
-            os.path.dirname(__file__), '..', '..', 'templates'
-        )
+        templates_dir = Path(__file__).resolve().parent.parent.parent / 'templates'
 
-        # Compute base URL from output PDF directory for resolving relative asset paths
-        output_dir = Path(output).resolve().parent
+        # Ensure output directory exists
+        output_dir = Path(output).resolve()
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Define output paths
+        pdf_path = output_dir / 'cv.pdf'
+        html_path = output_dir / 'cv.html'
         base_url = output_dir.as_uri()
 
-        # Generate PDF
-        generator = CVGenerator(templates_dir)
+        # Generate PDF and HTML
+        generator = CVGenerator(str(templates_dir))
         html_content = generator.render_html(template, data, paper_size=paper_size)
-        generator.generate_pdf(html_content, output, base_url=base_url, paper_size=paper_size)
+        generator.generate_pdf(html_content, str(pdf_path), base_url=base_url, paper_size=paper_size)
 
-        click.echo(f"✓ CV generated: {output}")
+        click.echo(f"✓ CV generated: {pdf_path}")
 
-        # Optionally save HTML
-        if html:
-            with open(html, 'w', encoding='utf-8') as f:
-                f.write(html_content)
-            click.echo(f"✓ HTML exported: {html}")
+        # Save HTML
+        html_path.write_text(html_content, encoding='utf-8')
+        click.echo(f"✓ HTML exported: {html_path}")
     except Exception as e:
         click.echo(f"✗ Error: {e}", err=True)
         raise

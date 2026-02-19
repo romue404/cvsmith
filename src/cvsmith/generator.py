@@ -100,7 +100,7 @@ class CVGenerator:
                 page.emulate_media(media="print")
                 _format_map = {'a4': 'A4', 'letter': 'Letter'}
                 page.pdf(
-                    path=output_path,
+                    path=str(Path(output_path)),
                     format=_format_map.get(paper_size.lower(), 'A4'),
                     print_background=True,
                     prefer_css_page_size=True,
