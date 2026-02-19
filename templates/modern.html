@@ -5,10 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ name }} - Curriculum Vitae</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Cantarell:wght@400;700&display=swap"
-        rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Cantarell:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+        /* ========== CSS VARIABLES - CUSTOMIZE HERE ========== */
+        :root {
+            /* ========== COLORS ========== */
+            --color-primary: #2a2a2d;
+            --color-secondary: #6a6a70;
+            --color-accent: #d7d7d9;
+
+            /* ========== TYPOGRAPHY ========== */
+
+            --font-family-primary: 'Open Sans', Arial, sans-serif;
+            --font-family-heading: 'Cantarell', 'Open Sans', Arial, sans-serif;
+            --font-family-monospace: 'Courier New', monospace;
+            /* Root font size - adjust this one value to scale all text */
+            --font-size-base: 10px;
+            /* Computed sizes from base */
+            --font-size-small: calc(var(--font-size-base) * 0.8);
+            --font-size-header: 11px;
+            --font-size-section-title: calc(var(--font-size-base) * 1.2);
+            --font-size-name: 28px;
+
+            /* ========== SPACING ========== */
+            --spacing-base: 4px;
+            --spacing-xs: var(--spacing-base);
+            --spacing-sm: calc(var(--spacing-base) * 1.5);
+            --spacing-md: calc(var(--spacing-base) * 2);
+            --spacing-lg: calc(var(--spacing-base) * 3);
+            --spacing-xl: calc(var(--spacing-base) * 6.25);
+
+            /* ========== TIMELINE ========== */
+            --timeline-dot-size: 8px;
+            --timeline-dot-size-nested: 4px;
+            --timeline-line-width: 1px;
+            --timeline-start-offset: 53px;
+
+            /* ========== LAYOUT ========== */
+            --timeline-position: 55px;
+            --timeline-dot-position: calc(var(--timeline-position) + var(--timeline-line-width) / 2 - var(--timeline-dot-size) / 2);
+            --profile-photo-size: 100px;
+            --section-grey-block-width: 31mm;
+            --page-padding-horizontal: 20mm;
+            --page-padding-vertical: 12mm;
+            --entry-date-width: 52px;
+            --entry-gap: 25px;
+            --header-gap: 25px;
+            --nested-dot-offset: calc(var(--timeline-position) - var(--timeline-dot-size-nested) / 2 - var(--entry-date-width) - var(--entry-gap) - var(--spacing-lg));
+
+
+
+            /* ========== SIZING ========== */
+            --profile-photo-border: 2px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -20,26 +71,31 @@
             margin: 0;
         }
 
-        html,
+        html {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            width: 210mm;
-            font-family: 'Open Sans', sans-serif;
-            color: #2a2a2a;
+            font-family: var(--font-family-primary);
+            color: var(--color-primary);
             background: #fafafa;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
 
         @media print {
+            html,
             body {
                 background: white;
                 margin: 0;
-            }
-
-            .page {
-                box-shadow: none;
-                margin: 0;
+                padding: 0;
+                width: 100%;
             }
         }
 
@@ -47,41 +103,59 @@
             width: 210mm;
             height: auto;
             background: white;
-            margin: 12px auto;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
-            padding: 25mm 20mm;
+            padding: var(--page-padding-vertical) var(--page-padding-horizontal);
             overflow: visible;
             position: relative;
+            margin: 12px auto;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
         }
 
         @media print {
             .page {
-                height: 297mm;
-                overflow: hidden;
+                width: 210mm;
+                height: auto;
+                margin: 0;
+                padding: var(--page-padding-vertical) var(--page-padding-horizontal);
+                box-shadow: none;
+                overflow: visible;
+                page-break-after: avoid;
             }
         }
 
         /* ============ HEADER SECTION ============ */
         .header-section {
             display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 25px;
+            grid-template-columns: var(--profile-photo-size) 1fr;
+            gap: var(--header-gap);
             align-items: flex-start;
-            margin-bottom: 35px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-xl);
+            border-bottom: 1px solid var(--color-accent);
+        }
+
+        .header-section.no-photo {
+            grid-template-columns: 1fr;
+            gap: 0;
         }
 
         .profile-photo {
-            width: 100px;
-            height: 100px;
+            width: var(--profile-photo-size);
+            height: var(--profile-photo-size);
             border-radius: 50%;
-            border: 3px solid #999;
-            flex-shrink: 0;
             overflow: hidden;
-            position: relative;
-            background-size: cover;
-            background-position: center;
+            /* ← this is what makes it a circle */
+            border: var(--profile-photo-border) solid var(--color-accent);
+            display: block;
+            /* avoid flex weirdness */
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* fills the circle */
+            display: block;
+            /* removes inline gap */
         }
 
         .header-center {
@@ -92,45 +166,45 @@
         }
 
         .header-subtitle {
-            font-size: 9px;
+            font-size: var(--font-size-header);
             letter-spacing: 4px;
-            color: #a0a0a0;
+            color: var(--color-secondary);
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: var(--spacing-md);
             font-weight: 500;
-            font-family: 'Open Sans', sans-serif;
+            font-family: var(--font-family-primary);
         }
 
         .header-name {
-            font-size: 28px;
+            font-size: var(--font-size-name);
             font-weight: 700;
-            color: #1a1a1a;
+            color: var(--color-primary);
             letter-spacing: -0.5px;
-            font-family: 'Open Sans', sans-serif;
+            font-family: var(--font-family-primary);
         }
 
         .personal-info {
-            font-size: 9px;
-            color: #666;
+            font-size: var(--font-size-header);
+            color: var(--color-secondary);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-top: 8px;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
             flex-wrap: wrap;
         }
 
         .info-piece {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: var(--spacing-xs);
             white-space: nowrap;
         }
 
         .info-piece::before {
-            content: '•';
-            color: #999;
-            margin-right: 2px;
+            content: '';
+            color: var(--color-secondary);
+            margin-right: var(--spacing-xs);
         }
 
         .info-piece:first-child::before {
@@ -139,9 +213,9 @@
         }
 
         .info-icon {
-            color: #999;
+            color: var(--color-secondary);
             flex-shrink: 0;
-            font-size: 10px;
+            font-size: var(--font-size-header);
             font-weight: 600;
         }
 
@@ -149,66 +223,82 @@
             line-height: 1.4;
         }
 
-        /* ============ TIMELINE LAYOUT ============ */
-        .timeline-container {
+        /* ============ ABOUT ME SECTION ============ */
+        .about-me-section {
+            margin-bottom: var(--spacing-xl);
             position: relative;
         }
 
-        /* Vertical line - at 55px from left edge of page, starts below section headers */
-        .timeline-container::before {
-            content: '';
-            position: absolute;
-            left: 55px;
-            top: 35px;
-            bottom: 0;
-            width: 1.5px;
-            background: #d5d5d5;
+        .about-me-content {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            color: #555;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* ============ TIMELINE LAYOUT ============ */
+        .timeline-container {
+            position: relative;
+            margin-bottom: var(--spacing-xl);
         }
 
         /* ============ SECTIONS ============ */
         .section {
-            margin-bottom: 28px;
+            margin-bottom: var(--spacing-xl);
             position: relative;
             z-index: 1;
+        }
+
+        /* Vertical timeline line: only for sections inside the timeline container */
+        .timeline-container .section::before {
+            content: '';
+            position: absolute;
+            left: var(--timeline-position);
+            top: var(--timeline-start-offset);
+            bottom: 0;
+            width: var(--timeline-line-width);
+            background: var(--color-accent);
+            z-index: 0;
         }
 
         .section-header {
             display: flex;
             align-items: center;
             gap: 0;
-            margin-bottom: 18px;
-            margin-left: -20mm;
-            margin-right: -20mm;
+            margin-bottom: var(--spacing-xl);
+            margin-left: calc(-1 * var(--page-padding-horizontal));
+            margin-right: calc(-1 * var(--page-padding-horizontal));
             padding-left: 0;
-            padding-right: 20mm;
+            padding-right: var(--page-padding-horizontal);
         }
 
-        /* Grey block reaches exactly to the timeline at 55px */
+        /* Grey block reaches exactly to the timeline at timeline position */
         .section-grey-block {
-            width: 30mm;
+            width: var(--section-grey-block-width);
             height: 20px;
-            background: #d9d9d9;
+            background: var(--color-accent);
             flex-shrink: 0;
         }
 
         .section-title {
-            font-family: 'Cantarell', sans-serif;
-            font-size: 12px;
+            font-family: var(--font-family-heading);
+            font-size: var(--font-size-section-title);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.2px;
-            color: #2a2a2a;
+            color: var(--color-primary);
             position: relative;
             z-index: 2;
-            margin-left: 12px;
+            margin-left: var(--spacing-lg);
         }
 
         /* ============ ENTRIES ============ */
         .entry {
-            margin-bottom: 16px;
+            margin-bottom: var(--spacing-xl);
             display: grid;
-            grid-template-columns: 52px 1fr;
-            gap: 25px;
+            grid-template-columns: var(--entry-date-width) 1fr;
+            gap: var(--entry-gap);
             position: relative;
         }
 
@@ -216,93 +306,167 @@
         .entry::before {
             content: '';
             position: absolute;
-            left: 51px;
-            top: 6px;
-            width: 8px;
-            height: 8px;
+            left: var(--timeline-dot-position);
+            top: 5px;
+            width: var(--timeline-dot-size);
+            height: var(--timeline-dot-size);
             border-radius: 50%;
-            background: #2a2a2a;
+            background: var(--color-primary);
             z-index: 3;
         }
 
         .entry-date {
-            font-size: 8.5px;
-            color: #999;
-            text-align: right;
-            padding-top: 4px;
+            font-size: var(--font-size-base);
+            color: var(--color-secondary);
+            text-align: left;
+            padding-top: var(--spacing-xs);
             line-height: 1.5;
             font-weight: 500;
-            margin-right: 8px;
+            margin-right: var(--spacing-md);
         }
 
         .entry-content {
             padding-left: 0;
-            padding-top: 2px;
+            padding-top: 0;
+        }
+
+        .entry-header {
+            display: flex;
+            align-items: baseline;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+            flex-wrap: wrap;
         }
 
         .entry-title {
-            font-size: 11px;
+            font-size: var(--font-size-header);
             font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 3px;
-            font-family: 'Open Sans', sans-serif;
+            color: var(--color-primary);
+            font-family: var(--font-family-primary);
+        }
+
+        .entry-separator {
+            color: var(--color-secondary);
+            font-size: var(--font-size-header);
         }
 
         .entry-subtitle {
-            font-size: 9px;
-            color: #777;
-            font-style: italic;
-            margin-bottom: 5px;
+            font-size: var(--font-size-base);
+            color: var(--color-secondary);
         }
 
         .entry-items {
-            font-size: 9.5px;
+            font-size: var(--font-size-base);
             color: #555;
             line-height: 1.5;
         }
 
         .entry-item {
             display: flex;
-            gap: 6px;
-            margin-bottom: 4px;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
         }
 
         .entry-item::before {
-            content: '✓';
-            color: #2a2a2a;
+            content: '›';
+            color: var(--color-primary);
             font-weight: bold;
             flex-shrink: 0;
-            font-size: 8px;
+            font-size: var(--font-size-small);
             margin-top: 1px;
         }
 
         .technologies {
-            font-size: 9px;
-            color: #888;
-            margin-top: 6px;
-            font-style: italic;
+            font-size: var(--font-size-base);
+            color: var(--color-secondary);
+            margin-top: var(--spacing-sm);
+            font-family: var(--font-family-monospace);
+        }
+
+        /* ============ NESTED POSITIONS ============ */
+
+        .nested-positions {
+            margin-top: var(--spacing-lg);
+            padding-left: var(--spacing-lg);
+        }
+
+        .nested-position {
+            margin-bottom: var(--spacing-md);
+            position: relative;
+        }
+
+        .nested-position:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Small dot on timeline for nested positions */
+        .nested-position::before {
+            content: '';
+            position: absolute;
+            left: var(--nested-dot-offset);
+            top: 3px;
+            width: var(--timeline-dot-size-nested);
+            height: var(--timeline-dot-size-nested);
+            border-radius: 25%;
+            background: var(--color-primary);
+            z-index: 3;
+        }
+
+        .nested-position-header {
+            display: flex;
+            align-items: baseline;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .nested-position-period {
+            font-size: var(--font-size-small);
+            color: var(--color-secondary);
+            font-weight: 600;
+            background: var(--color-accent);
+            padding: 2px 6px;
+            border-radius: 2px;
+            flex-shrink: 0;
+            line-height: 1.4;
+            display: inline-block;
+        }
+
+        .nested-position-title {
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            color: var(--color-primary);
+            font-family: var(--font-family-primary);
+        }
+
+        .nested-position .entry-items {
+            padding-left: var(--spacing-lg);
         }
 
         /* ============ SKILLS SECTION ============ */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 25px;
+            gap: var(--spacing-xl);
             justify-content: space-between;
         }
 
+        .skill-category:nth-child(n+4) {
+            display: none;
+        }
+
         .skill-category {
-            margin-bottom: 14px;
-            padding: 12px;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-lg);
             border-radius: 4px;
         }
 
         .skill-category-title {
-            font-family: 'Cantarell', sans-serif;
+            font-family: var(--font-family-heading);
             font-weight: 700;
-            font-size: 9px;
-            color: #1a1a1a;
-            margin-bottom: 6px;
+            font-size: var(--font-size-base);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -310,66 +474,30 @@
         .skill-item {
             display: flex;
             align-items: center;
-            font-size: 9.5px;
-            margin-bottom: 4px;
+            font-size: var(--font-size-base);
+            margin-bottom: var(--spacing-xs);
             color: #555;
-            gap: 4px;
+            gap: var(--spacing-xs);
         }
 
         .skill-item span:first-child {
-            margin-right: 8px;
+            margin-right: var(--spacing-md);
         }
 
         .skill-level {
-            font-size: 8px;
+            font-size: var(--font-size-small);
             letter-spacing: 2.5px;
-            color: #2a2a2a;
+            color: var(--color-primary);
             margin-left: auto;
-        }
-
-        /* ============ AWARDS ============ */
-        .awards-container {
-            margin-left: 77px;
-        }
-
-        .award-item {
-            margin-bottom: 12px;
-        }
-
-        .award-title {
-            font-size: 10px;
-            font-weight: 700;
-            color: #1a1a1a;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .award-date {
-            font-size: 8px;
-            color: #999;
-            margin-top: 1px;
-        }
-
-        .award-desc {
-            font-size: 9.5px;
-            color: #666;
-            margin-top: 2px;
-            line-height: 1.4;
         }
 
         /* ============ FOOTER ============ */
         .footer {
             position: absolute;
-            bottom: 22mm;
-            right: 20mm;
-            font-size: 8px;
-            color: #999;
-        }
-
-        @media print {
-            .page {
-                box-shadow: none;
-                margin: 0;
-            }
+            bottom: var(--page-padding-vertical);
+            right: var(--page-padding-horizontal);
+            font-size: var(--font-size-small);
+            color: var(--color-secondary);
         }
     </style>
 </head>
@@ -377,11 +505,11 @@
 <body>
     <div class="page">
         <!-- HEADER -->
-        <div class="header-section">
+        <header class="header-section{% if not photo %} no-photo{% endif %}">
             {% if photo %}
-            <img src="{{ photo }}" alt="Profile Photo" class="profile-photo">
-            {% else %}
-            <div class="profile-photo" style="background: #e8e8e8;"></div>
+            <div class="profile-photo">
+                <img src="{{ photo }}" alt="Profile photo" />
+            </div>
             {% endif %}
 
             <div class="header-center">
@@ -425,48 +553,85 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
+        </header>
+
+        <!-- ABOUT ME SECTION (if present) -->
+        {% if about_me %}
+        <section class="about-me-section">
+            <header class="section-header">
+                <div class="section-grey-block"></div>
+                <div class="section-title">ABOUT ME</div>
+            </header>
+            <div class="about-me-content">
+                {{ about_me }}
+            </div>
+        </section>
+        {% endif %}
 
         <!-- MAIN CONTENT WITH TIMELINE -->
         <div class="timeline-container">
             <!-- DYNAMIC SECTIONS -->
             {% for section in sections %}
-            <div class="section">
-                <div class="section-header">
+            <section class="section">
+                <header class="section-header">
                     <div class="section-grey-block"></div>
                     <div class="section-title">{{ section.name }}</div>
-                </div>
+                </header>
 
                 {% for entry in section.entries %}
                 <div class="entry">
-                    <div class="entry-date">{{ entry.period|replace(' – ', '<br>')|safe }}</div>
+                    <div class="entry-date">{{ entry.period|replace(' – ', ' –<br>')|safe }}</div>
                     <div class="entry-content">
-                        <div class="entry-title">{{ entry.title }}</div>
-                        <div class="entry-subtitle">{{ entry.subtitle }}</div>
+                        <div class="entry-header">
+                            <span class="entry-title">{{ entry.title }}</span>
+                            <span class="entry-separator"> | </span>
+                            <span class="entry-subtitle">{{ entry.subtitle }}</span>
+                        </div>
                         <div class="entry-items">
                             {% for detail in entry.details %}
                             <div class="entry-item">{{ detail|safe }}</div>
                             {% endfor %}
                         </div>
-                        {% if entry.technologies %}
-                        <div class="technologies">
-                            Technologies: {{ entry.technologies|join(', ') }}
+
+
+
+                        {% if entry.positions %}
+                        <div class="nested-positions">
+                            {% for position in entry.positions %}
+                            <div class="nested-position">
+                                <div class="nested-position-header">
+                                    <span class="nested-position-period">{{ position.period }}</span>
+                                    <span class="nested-position-title">{{ position.title }}</span>
+                                </div>
+                                <div class="entry-items">
+                                    {% for detail in position.details %}
+                                    <div class="entry-item">{{ detail|safe }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
                         {% endif %}
+                        {% if entry.technologies %}
+                        <div class="technologies">
+                            ⚙ {{ entry.technologies|join(', ') }}
+                        </div>
+                        {% endif %}
+
                     </div>
                 </div>
                 {% endfor %}
-            </div>
+            </section>
             {% endfor %}
         </div>
 
         <!-- SKILLS SECTION -->
         {% if skills %}
-        <div class="section">
-            <div class="section-header">
+        <section class="section">
+            <header class="section-header">
                 <div class="section-grey-block"></div>
                 <div class="section-title">TECHNICAL SKILLS</div>
-            </div>
+            </header>
             <div class="skills-container">
                 {% for category in skills %}
                 <div class="skill-category">
@@ -480,12 +645,12 @@
                 </div>
                 {% endfor %}
             </div>
-        </div>
+        </section>
         {% endif %}
 
-        <div class="footer">
+        <footer class="footer">
             {{ location }}, {{ today_date }}
-        </div>
+        </footer>
     </div>
 </body>
 
