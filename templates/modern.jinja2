@@ -67,7 +67,7 @@
         }
 
         @page {
-            size: A4;
+            size: {{ page_css_size }};
             margin: 0;
         }
 
@@ -87,20 +87,12 @@
             margin: 0;
             padding: 0;
             width: 100%;
-        }
-
-        @media print {
-            html,
-            body {
-                background: white;
-                margin: 0;
-                padding: 0;
-                width: 100%;
-            }
+            max-width: 230mm;
+            margin: 0 auto;
         }
 
         .page {
-            width: 210mm;
+            width: {{ page_width }};
             height: auto;
             background: white;
             padding: var(--page-padding-vertical) var(--page-padding-horizontal);
@@ -110,27 +102,14 @@
             box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
         }
 
-        @media print {
-            .page {
-                width: 210mm;
-                height: auto;
-                margin: 0;
-                padding: var(--page-padding-vertical) var(--page-padding-horizontal);
-                box-shadow: none;
-                overflow: visible;
-                page-break-after: avoid;
-            }
-        }
-
         /* ============ HEADER SECTION ============ */
         .header-section {
             display: grid;
             grid-template-columns: var(--profile-photo-size) 1fr;
             gap: var(--header-gap);
             align-items: flex-start;
-            margin-bottom: var(--spacing-xl);
+            margin-bottom: calc(var(--spacing-lg));
             padding-bottom: var(--spacing-xl);
-            border-bottom: 1px solid var(--color-accent);
         }
 
         .header-section.no-photo {
@@ -192,36 +171,22 @@
             gap: var(--spacing-sm);
             margin-top: var(--spacing-md);
             flex-wrap: wrap;
+            line-height: 1.8;
         }
 
         .info-piece {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-xs);
+            display: inline-block;
             white-space: nowrap;
+            margin: 0;
+            padding: 0;
+            padding-right: var(--spacing-md);
         }
 
-        .info-piece::before {
-            content: '';
-            color: var(--color-secondary);
-            margin-right: var(--spacing-xs);
+        .info-piece a.cv-link {
+            color: inherit;
+            text-decoration: none;
         }
 
-        .info-piece:first-child::before {
-            content: '';
-            margin-right: 0;
-        }
-
-        .info-icon {
-            color: var(--color-secondary);
-            flex-shrink: 0;
-            font-size: var(--font-size-header);
-            font-weight: 600;
-        }
-
-        .info-text {
-            line-height: 1.4;
-        }
 
         /* ============ ABOUT ME SECTION ============ */
         .about-me-section {
@@ -266,7 +231,7 @@
             display: flex;
             align-items: center;
             gap: 0;
-            margin-bottom: var(--spacing-xl);
+            margin-bottom: calc(var(--spacing-xl) * 0.5);
             margin-left: calc(-1 * var(--page-padding-horizontal));
             margin-right: calc(-1 * var(--page-padding-horizontal));
             padding-left: 0;
@@ -295,11 +260,11 @@
 
         /* ============ ENTRIES ============ */
         .entry {
-            margin-bottom: var(--spacing-xl);
             display: grid;
             grid-template-columns: var(--entry-date-width) 1fr;
             gap: var(--entry-gap);
             position: relative;
+            margin-bottom: var(--spacing-lg);
         }
 
         /* Small black dot on timeline */
@@ -407,7 +372,7 @@
             top: 3px;
             width: var(--timeline-dot-size-nested);
             height: var(--timeline-dot-size-nested);
-            border-radius: 25%;
+            border-radius: 50%;
             background: var(--color-primary);
             z-index: 3;
         }
@@ -499,6 +464,125 @@
             font-size: var(--font-size-small);
             color: var(--color-secondary);
         }
+
+        /* ============================================================================
+           PRINT OVERRIDES — keeps screen look, fixes PDF/print
+           ========================================================================== */
+
+        @media print {
+            @page {
+                size: {{ page_css_size }};
+                margin: 12mm 0;
+            }
+
+            html,
+            body {
+                background: #fff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .page {
+                width: {{ page_width }} !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                background: #fff !important;
+                padding: 0 var(--page-padding-horizontal) !important;
+                overflow: visible !important;
+                break-inside: auto !important;
+                page-break-inside: auto !important;
+                page-break-after: auto !important;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            .section-title,
+            .header-name {
+                break-after: avoid-page;
+                page-break-after: avoid;
+                orphans: 3;
+                widows: 3;
+            }
+
+            h1+*,
+            h2+*,
+            h3+*,
+            .section-header+* {
+                break-before: avoid-page;
+                page-break-before: avoid;
+            }
+
+            .section-header,
+            .entry-header,
+            .nested-position-header {
+                break-after: avoid-page;
+                page-break-after: avoid;
+            }
+
+            .header-section,
+            .about-me-section,
+            .award-item,
+            .skill-category,
+            figure {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .entry,
+            .entry-nested,
+            .nested-position,
+            .entry-item,
+            .technologies {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            img,
+            svg,
+            canvas {
+                max-width: 100% !important;
+                height: auto !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .page-break {
+                break-before: page;
+                page-break-before: always;
+            }
+
+            .footer {
+                position: static !important;
+                margin-top: 6mm !important;
+                text-align: right !important;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            tr,
+            td,
+            th {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                overflow-wrap: break-word;
+            }
+
+            a[href]::after {
+                content: "" !important;
+            }
+        }
     </style>
 </head>
 
@@ -517,6 +601,12 @@
                 <div class="header-name">{{ name }}</div>
 
                 <div class="personal-info">
+                    {% if personal_info.info %}
+                    {% for item in personal_info.info %}
+                    <span class="info-piece">{{ item|linkify|safe }}</span>
+                    {% endfor %}
+                    {% else %}
+                    {# Fallback for legacy structure #}
                     {% if personal_info.birth %}
                     <span class="info-piece">
                         <span class="info-icon">◆</span>
@@ -550,6 +640,7 @@
                         <span class="info-icon">◉</span>
                         <span class="info-text">{{ personal_info.website }}</span>
                     </span>
+                    {% endif %}
                     {% endif %}
                 </div>
             </div>

@@ -1,0 +1,209 @@
+name: Sherlock Holmes
+title: World's Only Consulting Detective
+photo: assets/sherlock.jpg
+location: 221B Baker Street, London
+today_date: 16.02.1905
+
+personal_info:
+  info:
+    - "◆ Born 06.01.1854 in Yorkshire"
+    - "⌂ 221B Baker Street, London, England"
+    - "☎ +44 (0) 20 7946 0958"
+    - "✉ sherlock@bakerstreet.london"
+    - "◉ consulting-detective.co.uk"
+
+about_me: "I am a man of logic and deduction, devoted to the pursuit of truth and justice in cases that baffle Scotland Yard. My methods are scientific and systematic—where others see confusion, I perceive order and pattern. I apply the exact sciences of observation, chemistry, and criminal analysis to matters that lie beyond the reach of ordinary Scotland Yard inspectors. Between cases of importance, I maintain my monographs on tobacco ash varieties and conduct experiments in chemical analysis. The game, as I have so often remarked, is afoot."
+
+sections:
+  - name: "EDUCATION"
+    entries:
+      - period: "1872 – 1876"
+        title: "Studies in Natural Sciences"
+        subtitle: "University of Oxford"
+        details:
+          - "Focused on chemistry, anatomy, and criminal analysis"
+          - "Conducted early experiments in forensic detection and chemical analysis"
+          - "Dissertation on tobacco ash: A monograph identifying 140 varieties from appearance alone"
+        technologies: ["Chemistry", "Anatomy", "Forensic Analysis"]
+
+      - period: "1876 – 1878"
+        title: "Self-Directed Studies in Detection"
+        subtitle: "Independent Research, London"
+        technologies: ["Criminal Law", "Disguise", "Observation"]
+        positions:
+          - period: "1876 – 1877"
+            title: "Development of Observational Techniques"
+            details:
+              - "Catalogued tobacco ash varieties and their forensic applications"
+              - "Established systematic methodology for crime scene analysis"
+          - period: "1877 – 1878"
+            title: "First Practical Applications & Early Cases"
+            details:
+              - "Applied deductive methods to minor investigations around London"
+              - "Refined disguise techniques and psychological profiling methods"
+
+
+      - period: "1878 – 1881"
+        title: "Apprenticeship in Detection"
+        subtitle: "Various Investigations, London"
+        details:
+          - "First cases solved through purely deductive reasoning"
+          - "Established reputation with Scotland Yard officials"
+          - "Developed proprietary methods still unmatched by police forces"
+        technologies: ["Investigation", "Deduction", "Case Analysis"]
+
+  - name: "CAREER"
+    entries:
+      - period: "1881 – 1891"
+        title: "Consulting Detective & Partner to Dr. John Watson"
+        subtitle: "221B Baker Street, London"
+        details:
+          - "Partnership with Dr. John Watson yielded numerous documented cases of international significance"
+          - "Solved cases involving the Crown, foreign governments, and criminal organizations"
+          - "Achieved unprecedented success rate through systematic application of logic and science"
+          - "Maintained practice while pursuing research in specialized monographs"
+        technologies: ["Deduction", "Disguise", "Chemistry", "Magnifying Glass"]
+
+      - period: "1891 – 1894"
+        title: "Continental Travels & Disappearance"
+        subtitle: "Throughout Europe"
+        details:
+          - "Pursued arch-nemesis Professor Moriarty across Europe in pursuit of justice"
+          - "Investigated cases of international criminal conspiracy"
+          - "Presumed lost at Reichenbach Falls following confrontation with Moriarty"
+        technologies: ["Tracking", "Infiltration", "Criminal Psychology"]
+
+      - period: "1894 – 1903"
+        title: "Consulting Detective & Master of Disguise"
+        subtitle: "221B Baker Street, London"
+        details:
+          - "Returned to practice following resolution of Moriarty matter"
+          - "Cases grew in scope and complexity, drawing international clients"
+          - "Continued collaboration with Dr. Watson on case documentation"
+          - "Refined and perfected methods through hundreds of investigations"
+        technologies: ["Deduction", "Observation", "Advanced Chemistry", "Bees"]
+
+      - period: "1903 – present"
+        title: "Retired Detective & Beekeeper Philosopher"
+        subtitle: "Sussex Downs, England"
+        details:
+          - "Retired from active practice to pursue philosophical studies and beekeeping"
+          - "Consults on cases of sufficient interest or international importance"
+          - "Conducted advanced work on tobacco ash analysis and criminal psychology monographs"
+          - "Maintains correspondence with officials worldwide on matters of detection"
+        technologies: ["Beekeeping", "Philosophy", "Monograph Writing"]
+
+  - name: "NOTABLE CASES"
+    entries:
+      - period: "1881"
+        title: "A Study in Scarlet"
+        subtitle: "The Scarlet Thread - Scotland Yard Utterly Baffled"
+        details:
+          - "First documented case demonstrating pure deductive reasoning"
+          - "Tracked criminal across continents using trace evidence and psychology"
+          - "Established Sherlock Holmes' methods as superior to official investigation"
+        technologies: ["Deduction", "Criminal Records", "Psychology"]
+
+      - period: "1889"
+        title: "The Hound of the Baskervilles"
+        subtitle: "Curse of the Supernatural - A Matter of Science"
+        details:
+          - "Unmasked elaborate criminal conspiracy disguised as supernatural phenomenon"
+          - "Applied logic and investigation to dispel false accounts of supernatural curse"
+          - "Saved an innocent man from criminal machination and certain death"
+        technologies: ["Observation", "Photography", "Criminal Analysis"]
+
+      - period: "1891"
+        title: "The Final Problem"
+        subtitle: "Moriarty - The Napoleon of Crime"
+        details:
+          - "Pursued and confronted arch-nemesis Professor Moriarty at Reichenbach Falls"
+          - "Attempted destruction of vast criminal empire spanning three continents"
+          - "Case concluded in apparent mutual destruction at Alpine precipice"
+        technologies: ["Strategy", "International Intelligence", "Tracking"]
+
+      - period: "1894"
+        title: "The Empty House"
+        subtitle: "Return from the Grave"
+        details:
+          - "Returned to London after years presumed dead to dismay of criminal elements"
+          - "Pursued remaining agents of Moriarty's organization"
+          - "Resumed practice with renewed dedication to justice"
+        technologies: ["Disguise", "Infiltration", "Observation"]
+
+skills:
+  - category: "Foreign Languages"
+    skills:
+      - name: "English"
+        level: 5
+      - name: "French"
+        level: 4
+      - name: "German"
+        level: 3
+      - name: "Latin"
+        level: 3
+
+  - category: "Deduction & Investigation"
+    skills:
+      - name: "Observation"
+        level: 5
+      - name: "Logical Deduction"
+        level: 5
+      - name: "Forensic Analysis"
+        level: 5
+      - name: "Disguise"
+        level: 4
+      - name: "Tracking & Surveillance"
+        level: 4
+
+  - category: "Sciences & Analysis"
+    skills:
+      - name: "Chemistry"
+        level: 5
+      - name: "Anatomy & Pathology"
+        level: 4
+      - name: "Criminal Law"
+        level: 4
+      - name: "Botany"
+        level: 3
+      - name: "Tobacco Ash Identification"
+        level: 5
+
+  - category: "Combat & Physical"
+    skills:
+      - name: "Baritsu (Japanese Wrestling)"
+        level: 4
+      - name: "Fencing"
+        level: 4
+      - name: "Boxing"
+        level: 3
+      - name: "Single-Stick Fighting"
+        level: 4
+
+  - category: "Specialized Skills"
+    skills:
+      - name: "Criminal Psychology"
+        level: 5
+      - name: "Disguise & Impersonation"
+        level: 4
+      - name: "Code-Breaking"
+        level: 4
+      - name: "Violin Performance"
+        level: 4
+
+awards:
+  - title: "Legion of Honour"
+    date: "1885"
+    description: "Awarded by the French Government for solving the case of the Speckled Band and preventing international scandal"
+
+  - title: "Personal Gratitude of Queen Victoria"
+    date: "1888"
+    description: "For discretion and service in matters of state affecting the Crown and British interests"
+
+  - title: "Emerald Tie-Pin"
+    date: "1890"
+    description: "Presented as token of appreciation by the King of Bohemia for protection of national interests and royal discretion"
+
+  - title: "Recognition by European Intelligence Services"
+    date: "1895"
+    description: "Acknowledged as leading independent investigator and consulting detective by police forces across Europe"

@@ -1,6 +1,7 @@
 """Command-line interface for CVSmith"""
 
 import os
+from pathlib import Path
 import click
 from .parser import load_yaml
 from .generator import CVGenerator
@@ -31,7 +32,14 @@ from .generator import CVGenerator
     required=False,
     help='Optional: Save rendered HTML to this file path'
 )
-def main(yaml, template, output, html):
+@click.option(
+    '--paper-size',
+    type=click.Choice(['a4', 'letter'], case_sensitive=False),
+    default='a4',
+    show_default=True,
+    help='Paper size: a4 or letter'
+)
+def main(yaml, template, output, html, paper_size):
     """Generate a CV PDF from YAML data and a template."""
     try:
         # Load YAML data
@@ -42,10 +50,14 @@ def main(yaml, template, output, html):
             os.path.dirname(__file__), '..', '..', 'templates'
         )
 
+        # Compute base URL from output PDF directory for resolving relative asset paths
+        output_dir = Path(output).resolve().parent
+        base_url = output_dir.as_uri()
+
         # Generate PDF
         generator = CVGenerator(templates_dir)
-        html_content = generator.render_html(template, data)
-        generator.generate_pdf(html_content, output)
+        html_content = generator.render_html(template, data, paper_size=paper_size)
+        generator.generate_pdf(html_content, output, base_url=base_url, paper_size=paper_size)
 
         click.echo(f"✓ CV generated: {output}")
 
