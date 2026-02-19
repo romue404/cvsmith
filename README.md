@@ -2,6 +2,12 @@
 
 A modern Python library to convert YAML-formatted CV data to professional, clickable PDF documents using Jinja2 templates and Playwright.
 
+## Preview
+
+Here's what a CVSmith-generated CV looks like:
+
+![Sherlock Holmes CV Preview](sherlock-preview.png)
+
 ## Features
 
 - ✨ **Automatic Link Detection** - Email addresses, phone numbers, and URLs are automatically converted to clickable links in PDFs and HTML
@@ -10,33 +16,27 @@ A modern Python library to convert YAML-formatted CV data to professional, click
 - **Professional Output** - Clean, responsive HTML and PDF rendering using modern CSS
 - **YAML-Powered** - Simple YAML format for CV content, easy to maintain and version control
 
-## Example
-
-Here's what a CVSmith-generated CV looks like:
-
-![Sherlock Holmes CV Preview](examples/sherlock-preview.png)
-
 ## Installation
 
 ```bash
 uv sync
 ```
 
-## Usage
-
-### Basic Usage
+## Quick Start
 
 ```bash
 uv run cvsmith --yaml examples/sherlock.yaml --template modern.jinja2 --output cv.pdf
 ```
 
-### Save HTML Output
+### Common Commands
+
+Save HTML output alongside PDF:
 
 ```bash
 uv run cvsmith --yaml examples/sherlock.yaml --template modern.jinja2 --output cv.pdf --html cv.html
 ```
 
-### Generate US Letter Size
+Generate US Letter size:
 
 ```bash
 uv run cvsmith --yaml examples/sherlock.yaml --template modern.jinja2 --output cv.pdf --paper-size letter
@@ -52,9 +52,13 @@ uv run cvsmith --yaml examples/sherlock.yaml --template modern.jinja2 --output c
 --paper-size SIZE      Paper size: 'a4' (default) or 'letter'
 ```
 
-## YAML Format
+## Creating Your CV
 
-Create a `cv.yaml` file:
+### Basic YAML Format
+
+Create a `cv.yaml` file with your CV data. See the full [Sherlock Holmes example](examples/sherlock.yaml) for a complete structure.
+
+Basic structure:
 
 ```yaml
 name: Your Name
@@ -69,7 +73,7 @@ personal_info:
     - "✉ your.email@example.com"
     - "◉ yourwebsite.com"
 
-about_me: "Brief professional summary..."
+about_me: "Your professional summary..."
 
 sections:
   - name: "EDUCATION"
@@ -78,32 +82,19 @@ sections:
         title: "Degree Name"
         subtitle: "University Name"
         details:
-          - "Achievement or skill learned"
-          - "Another accomplishment"
+          - "Achievement or skill"
         technologies: ["Skill1", "Skill2"]
-
-  - name: "CAREER"
-    entries:
-      - period: "2022 – present"
-        title: "Job Title"
-        subtitle: "Company Name"
-        details:
-          - "Key responsibility or achievement"
-        technologies: ["Tech1", "Tech2"]
-        positions:
-          - period: "2023 – present"
-            title: "Promoted to Senior Role"
-            details:
-              - "New responsibility"
 
 skills:
   - category: "Languages"
     items:
       - skill: "Python"
         level: 5
-      - skill: "JavaScript"
-        level: 4
 ```
+
+**Flexible Sections**: You can omit any section entirely. No skills? Don't include the `skills` section. No photo? Leave `photo` empty or remove it. The template adapts to what you provide.
+
+For a complete, real-world example with all sections, see [examples/sherlock.yaml](examples/sherlock.yaml).
 
 ## Features in Detail
 
@@ -128,48 +119,27 @@ Use `--paper-size letter` to switch formats without changing your CV data.
 
 ### Customizable Templates
 
-Templates use Jinja2 syntax and have access to all your YAML data:
+Currently, CVSmith includes the **modern.jinja2** template, a professional CV design with:
+
+- Clean typography and spacing
+- Professional timeline-based layout
+- Responsive design for both screen and print
+- Support for nested positions (e.g., promotions within companies)
+- Automatic link detection in contact info
+
+The template uses standard Jinja2 syntax and has access to all your YAML data. You can customize colors, fonts, and layout by modifying the CSS variables in [templates/modern.jinja2](templates/modern.jinja2):
 
 ```jinja2
-{{ name }}
-{{ about_me }}
 {% for section in sections %}
   <h2>{{ section.name }}</h2>
   {% for entry in section.entries %}
     <h3>{{ entry.title }}</h3>
-    <!-- Render entry details -->
+    <!-- Entry details here -->
   {% endfor %}
 {% endfor %}
 ```
 
-## Project Structure
-
-```text
-.
-├── src/cvsmith/
-│   ├── cli.py           # Command-line interface
-│   ├── generator.py     # HTML/PDF generation logic
-│   ├── parser.py        # YAML parsing
-│   └── __init__.py
-├── templates/
-│   └── modern.jinja2    # Professional CV template
-├── examples/
-│   ├── sherlock.yaml    # Example CV data
-│   ├── sherlock.html    # Rendered HTML
-│   ├── sherlock.pdf     # Generated PDF
-│   └── assets/          # Images for CVs
-├── tests/               # Test suite
-├── pyproject.toml       # Project configuration
-└── README.md
-```
-
-## Development
-
-### Setup
-
-```bash
-uv sync --all-extras
-```
+## Testing & Development
 
 ### Run Tests
 
@@ -189,41 +159,10 @@ uv run black src/
 uv run pytest -xvs tests/test_name.py::test_function
 ```
 
-## Dependencies
+## Project Info
 
-- **Jinja2** (3.1.6) - HTML templating
-- **PyYAML** (6.0.3) - YAML parsing
-- **Playwright** (1.48.2) - Browser automation for PDF generation
-- **Click** (8.3.1) - CLI framework
-- **pytest** (dev) - Testing framework
-- **black** (dev) - Code formatter
+- **Python**: 3.13+
+- **Main Dependencies**: Jinja2, PyYAML, Playwright, Click
+- **Built With**: Jinja2 (templating), Playwright (PDF generation), Click (CLI)
 
-Requires Python 3.13+
-
-## Examples
-
-Check out `examples/` for complete working examples:
-
-- `sherlock.yaml` - Full example with all sections
-- `sherlock.html` - Rendered HTML output
-- `sherlock.pdf` - Final PDF output
-
-## Why CVSmith?
-
-Traditional CV builders are either:
-
-- **Too rigid** - Limited customization
-- **Too complex** - Require web interfaces
-- **Not version-controllable** - Data locked in databases
-
-CVSmith enables:
-
-- ✅ Full version control of your CV data
-- ✅ Complete customization via templates
-- ✅ Professional PDF output
-- ✅ Simple YAML format (easy to read and edit)
-- ✅ Automated testing of CV rendering
-
-## License
-
-MIT
+See [examples/](examples/) for working examples including the Sherlock Holmes CV.
