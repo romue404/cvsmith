@@ -38,7 +38,7 @@ This creates a virtual environment in `.venv/` and installs all dependencies. Al
 ### Example
 
 ```powershell
-uv run cvsmith --yaml "examples/sherlock.yaml" --template "modern.jinja2" --output "output_folder" --paper-size "a4"
+uv run cvsmith --yaml "examples/sherlock/sherlock.yaml" --template "modern.jinja2" --output "examples/sherlock/" --paper-size "a4"
 ```
 
 This generates:
